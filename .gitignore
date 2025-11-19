@@ -208,3 +208,6 @@ __marimo__/
 
 # Generated DataBase
 data/library.sqlite
+
+#OSX Files
+.DS_Store
