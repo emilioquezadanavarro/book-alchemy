@@ -13,7 +13,9 @@ app = Flask(__name__)
 # 2. Setting up routes
 @app.route('/add_author', methods=['GET', 'POST'])
 def add_author():
+
     # Check the request method
+
     if request.method == 'POST':
 
         # Getting data from add_author.html
@@ -36,7 +38,7 @@ def add_author():
             db.session.commit()
 
             # Success message using flash function
-            flash(f"Author {name} added successfully")
+            flash(f"The author '{name}' was successfully added")
 
             # Redirect the user to the GET Route
             return redirect(url_for('add_author'))
@@ -50,6 +52,50 @@ def add_author():
     # Handle GET or finished POST (Default action: show the form)
     return render_template('add_author.html')
 
+@app.route('/add_book', methods=['GET', 'POST'])
+def add_book():
+
+    if request.method == 'POST':
+
+        # Getting data from add_book.html
+        isbn = request.form.get('isbn')
+        title = request.form.get('title')
+        publication_year = request.form.get('publication_year')
+        author_id = request.form.get('author_id')
+
+
+        # Validation all fields are filled
+        if isbn and title and publication_year and author_id:
+
+            # Convert publication_year to an integer
+            publication_year = int(publication_year)
+
+            # Convert author_id to an integer
+            author_id = int(author_id)
+
+            new_book = Book(isbn=isbn, title=title, publication_year=publication_year, author_id=author_id)
+
+            # Adding new author to database
+            db.session.add(new_book)
+
+            # Commit the changes
+            db.session.commit()
+
+            # Success message using flash function
+            flash(f"The book called '{title}', was successfully added")
+
+            # Redirect the user to the GET Route
+            return redirect(url_for('add_book'))
+
+        else:
+            # One or more fields are missing - display error
+            flash('All fields are mandatory.', 'error')
+            return redirect(url_for('add_book'))
+
+    authors = Author.query.all()
+
+    # Handle GET or finished POST (Default action: show the form)
+    return render_template('add_book.html', authors=authors)
 
 # 3. Configure the Database Connection using absolute path
 basedir = os.path.abspath(os.path.dirname(__file__))
