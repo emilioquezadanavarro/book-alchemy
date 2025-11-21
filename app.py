@@ -14,8 +14,21 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
+    # Retrieve sort_by parameter (default: title)
+    sort_by = request.args.get('sort_by', 'title')
 
-    all_books = Book.query.join(Author).all()
+    # Query (not executed yet )
+    query = Book.query.join(Author)
+
+    # Applying conditional sort
+    if sort_by == 'author':
+        query = query.order_by(Author.name)
+    elif sort_by == "title":
+        query = query.order_by(Book.title)
+
+    # Execute final query
+    all_books = query.all()
+
     return render_template('home.html', books=all_books)
 
 
