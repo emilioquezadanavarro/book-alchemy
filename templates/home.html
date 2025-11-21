@@ -5,10 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+          <style>
+      /* Basic button styling to make the links look clickable */
+      .sort-link {
+          padding: 8px 15px;
+          margin: 5px;
+          text-decoration: none;
+          background-color: #007bff;
+          color: white;
+          border-radius: 4px;
+          display: inline-block;
+          font-size: 0.9em;
+      }
+      .sort-link:hover {
+          background-color: #0056b3;
+      }
+      .sort-controls {
+          margin-bottom: 20px;
+          text-align: center;
+      }
+    </style>
 
   </head>
   <body>
     <h1>📚 My Digital Library</h1>
+    <!-- Sorting Controls -->
+    <!-- These links reload the home page with a URL parameter like ?sort_by=title -->
+    <div class="sort-controls">
+        <span>Sort by:</span>
+        <!-- URL for home route, adding the sort_by=title parameter -->
+        <a href="{{ url_for('home', sort_by='title') }}" class="sort-link">Title</a>
+        <!-- URL for home route, adding the sort_by=author parameter -->
+        <a href="{{ url_for('home', sort_by='author') }}" class="sort-link">Author Name</a>
+    </div>
+
     {% for book in books %}
     <div> <h3> Book: {{ book.title }} Author: {{ book.author.name }}</h3>
         <p> ISBN: {{ book.isbn }} Publication Year: {{ book.publication_year }}</p>
