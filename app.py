@@ -11,6 +11,15 @@ from datetime import datetime
 app = Flask(__name__)
 
 # 2. Setting up routes
+
+@app.route('/')
+def home():
+
+    all_books = Book.query.join(Author).all()
+    return render_template('home.html', books=all_books)
+
+
+
 @app.route('/add_author', methods=['GET', 'POST'])
 def add_author():
 
