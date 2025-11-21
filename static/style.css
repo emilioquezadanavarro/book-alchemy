@@ -1,26 +1,56 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f5;
-    color: #333;
+    background-color: rgba(240, 240, 245, 0.22);
+    color: #090808;
     padding: 20px;
-
-    /* Flexbox for centering */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 10vh;
+    /* Removed all flexbox rules to enable block alignment */
 }
 
+/* 1. Alignment for H1 (Title) */
+h1 {
+    color: #007bff;
+    /* Centers the H1 block horizontally */
+    margin: 0 auto 30px auto;
+    /* Sets the same max-width as the book entries for alignment */
+    max-width: 600px;
+    text-align: center;
+}
+
+/* 2. Alignment for Sort Controls */
+.sort-controls {
+    /* Centers the sort controls block horizontally */
+    margin: 0 auto 20px auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* 3. Alignment for Book Entries (the <div> in the loop) */
+div {
+    max-width: 600px;
+    width: 100%;
+    padding: 15px;
+    /* CRITICAL FIX: Centers the book entry div horizontally and fixes the staggered look */
+    margin: 10px auto;
+    background-color: #fff;
+    border: 1px solid #0033ff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    text-align: left; /* Ensures content inside the div is aligned left */
+}
+
+
+/* Style for forms (on /add_author and /add_book) */
 form {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 20px auto; /* Centers the form block horizontally */
     background: white;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
+/* Submission Button Styling */
 input[type="submit"] {
     background-color: #007bff;
     color: white;
@@ -28,4 +58,5 @@ input[type="submit"] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1em;
 }
