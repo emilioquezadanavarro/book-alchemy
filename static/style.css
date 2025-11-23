@@ -6,7 +6,38 @@ body {
     /* Removed all flexbox rules to enable block alignment */
 }
 
-/* 1. Alignment for H1 (Title) */
+/* 1 - Flash Message Styling (SUCCESS/ERROR/WARNING) */
+.flashes {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    list-style: none;
+    font-weight: bold;
+}
+
+.flashes.success {
+    background-color: #d4edda; /* Light Green */
+    color: #155724; /* Dark Green Text */
+    border: 1px solid #c3e6cb;
+}
+
+.flashes.warning {
+    background-color: #fff3cd; /* Light Yellow */
+    color: #856404; /* Dark Yellow Text */
+    border: 1px solid #ffeeba;
+}
+
+.flashes.error {
+    background-color: #f8d7da; /* Light Red */
+    color: #721c24; /* Dark Red Text */
+    border: 1px solid #f5c6cb;
+}
+
+
+/* 2 - Alignment for H1 (Title) */
+
 h1 {
     color: #007bff;
     /* Centers the H1 block horizontally */
@@ -16,7 +47,7 @@ h1 {
     text-align: center;
 }
 
-/* 2. Alignment for Sort Controls */
+/* 3 - Alignment for Sort Controls */
 .sort-controls {
     /* Centers the sort controls block horizontally */
     margin: 0 auto 20px auto;
@@ -24,7 +55,7 @@ h1 {
     text-align: center;
 }
 
-/* 3. Alignment for Book Entries (the <div> in the loop) */
+/* 4 - Alignment for Book Entries (the <div> in the loop) */
 div {
     max-width: 600px;
     width: 100%;
@@ -39,7 +70,7 @@ div {
 }
 
 
-/* Style for forms (on /add_author and /add_book) */
+/* 5 - Style for forms (on /add_author and /add_book) */
 form {
     max-width: 500px;
     margin: 20px auto; /* Centers the form block horizontally */
@@ -50,7 +81,7 @@ form {
     text-align: left;
 }
 
-/* Submission Button Styling */
+/* 6 - Submission Button Styling */
 input[type="submit"] {
     background-color: #007bff;
     color: white;
