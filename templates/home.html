@@ -6,59 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Digital Library</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-      /* Basic button styling to make the links look clickable */
-      .sort-link, input[type="submit"][value="Search"] { /* Applied styling to search button too */
-          padding: 8px 15px;
-          margin: 5px;
-          text-decoration: none;
-          background-color: #007bff;
-          color: white;
-          border-radius: 4px;
-          display: inline-block;
-          font-size: 0.9em;
-          cursor: pointer;
-          border: none;
-      }
-      .sort-link:hover, input[type="submit"][value="Search"]:hover {
-          background-color: #0056b3;
-      }
-      .sort-controls {
-          margin-bottom: 20px;
-          text-align: center;
-      }
-      /* Additional styling for the search field */
-      #search-form {
-          margin-bottom: 20px;
-          text-align: center;
-      }
-      #search-form input[type="text"] {
-          padding: 8px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          width: 385px;
-          margin-right: 5px;
-      }
-    </style>
   </head>
   <body>
 
+  <!-- Flash Message Display Block -->
   {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     {% for category, message in messages %}
-      <!-- Display category and message -->
       <div class="flashes {{ category }}">
         <p>{{ message }}</p>
       </div>
     {% endfor %}
   {% endif %}
-{% endwith %}
+  {% endwith %}
 
     <h1>📚 My Digital Library 📚</h1>
+    <h5>By Emilio Quezada</h5>
 
     <!-- Search Form -->
     <div id="search-form">
-      <!-- Method is GET, so the input 'search_term' becomes a URL parameter -->
       <form action="{{ url_for('home') }}" method="GET">
         <input type="text" placeholder="Search book title..." name="search_term">
         <input type="submit" value="Search">
@@ -74,9 +40,22 @@
 
     <!-- Book Display Loop -->
     {% for book in books %}
-    <div>
-      <h3> Book: {{ book.title }} Author: {{ book.author.name }}</h3>
-      <p> ISBN: {{ book.isbn }} Publication Year: {{ book.publication_year }}</p>
+    <!-- Using .book-entry class to activate Flexbox alignment in CSS -->
+    <div class="book-entry">
+
+        <!-- Content wrapped for Flexbox -->
+        <div class="book-details">
+            <h3> Book: {{ book.title }} Author: {{ book.author.name }}</h3>
+            <p> ISBN: {{ book.isbn }} Publication Year: {{ book.publication_year }}</p>
+        </div>
+
+        <!-- DELETE BUTTON FORM -->
+        <form method="POST" action="{{ url_for('delete_book', book_id=book.id) }}"
+              class="delete-form">
+            <button type="submit" class="delete-button">
+                Delete
+            </button>
+        </form>
     </div>
     {% endfor %}
 
