@@ -1,12 +1,11 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: rgba(240, 240, 245, 0.22);
-    color: #090808;
+    background-color: #f0f0f5;
+    color: #333;
     padding: 20px;
-    /* Removed all flexbox rules to enable block alignment */
 }
 
-/* 1 - Flash Message Styling (SUCCESS/ERROR/WARNING) */
+/* 1. Flash Message Styling */
 .flashes {
     max-width: 600px;
     margin: 10px auto;
@@ -16,78 +15,86 @@ body {
     list-style: none;
     font-weight: bold;
 }
+.flashes.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.flashes.warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+.flashes.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
-.flashes.success {
-    background-color: #d4edda; /* Light Green */
-    color: #155724; /* Dark Green Text */
-    border: 1px solid #c3e6cb;
-}
-
-.flashes.warning {
-    background-color: #fff3cd; /* Light Yellow */
-    color: #856404; /* Dark Yellow Text */
-    border: 1px solid #ffeeba;
-}
-
-.flashes.error {
-    background-color: #f8d7da; /* Light Red */
-    color: #721c24; /* Dark Red Text */
-    border: 1px solid #f5c6cb;
-}
-
-
-/* 2 - Alignment for H1 (Title) */
-
+/* 2. Alignment for General Blocks (H1, Forms, Controls) */
 h1 {
-    color: #007bff;
-    /* Centers the H1 block horizontally */
-    margin: 0 auto 30px auto;
-    /* Sets the same max-width as the book entries for alignment */
+    color: #090808;
+    margin: 0 auto 10px auto;
     max-width: 600px;
     text-align: center;
 }
 
-/* 3 - Alignment for Sort Controls */
-.sort-controls {
-    /* Centers the sort controls block horizontally */
+h5 {
+    color: #090808;
+    margin: 0 auto 40px auto;
+    max-width: 300px;
+    text-align: center;
+}
+
+.sort-controls, #search-form {
     margin: 0 auto 20px auto;
     max-width: 600px;
     text-align: center;
 }
 
-/* 4 - Alignment for Book Entries (the <div> in the loop) */
-div {
+/* 3. Book Entries */
+.book-entry {
     max-width: 600px;
     width: 100%;
     padding: 15px;
-    /* Centers the book entry div horizontally and fixes the staggered look */
     margin: 10px auto;
     background-color: #fff;
-    border: 1px solid #0033ff;
+    border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    text-align: left; /* Ensures content inside the div is aligned left */
+
+    /* Aligns content left, button right, and centers vertically */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.book-details {
+    flex-grow: 1;
+    margin-right: 15px;
+}
+.book-details h3, .book-details p {
+    margin: 0;
 }
 
 
-/* 5 - Style for forms (on /add_author and /add_book) */
-form {
-    max-width: 500px;
-    margin: 20px auto; /* Centers the form block horizontally */
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left;
+/* 4. Delete Button Styling */
+.delete-button {
+    padding: 4px 8px;
+    font-size: 0.8em;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
 }
 
-/* 6 - Submission Button Styling */
-input[type="submit"] {
+/* 5. Sort Styling */
+.sort-link, input[type="submit"] {
+    padding: 8px 15px;
+    margin: 5px;
+    text-decoration: none;
     background-color: #007bff;
     color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 0.9em;
     cursor: pointer;
-    font-size: 1em;
+    border: none;
+}
+
+.sort-link:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+input[type="submit"] {
+    width: auto;
 }
