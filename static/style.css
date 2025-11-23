@@ -29,7 +29,7 @@ div {
     max-width: 600px;
     width: 100%;
     padding: 15px;
-    /* CRITICAL FIX: Centers the book entry div horizontally and fixes the staggered look */
+    /* Centers the book entry div horizontally and fixes the staggered look */
     margin: 10px auto;
     background-color: #fff;
     border: 1px solid #0033ff;
