@@ -16,9 +16,16 @@ app = Flask(__name__)
 def home():
     # Retrieve sort_by parameter (default: title)
     sort_by = request.args.get('sort_by', 'title')
+    search_term = request.args.get('search_term')
 
-    # Query (not executed yet )
+    # Built the base query (not executed yet )
     query = Book.query.join(Author)
+
+    # Applying search filter
+    if search_term:
+        # Wildcard format
+        search_pattern = f"%{search_term}%"
+        query = query.filter(Book.title.ilike(search_pattern))
 
     # Applying conditional sort
     if sort_by == 'author':
@@ -29,8 +36,20 @@ def home():
     # Execute final query
     all_books = query.all()
 
-    return render_template('home.html', books=all_books)
+    if search_term and not all_books:
 
+        # User searched, but the list of results is empty
+        flash(f"No books found matching '{search_term}'. Showing all books.", 'warning')
+
+        # Reset the book list if not results were found, so the user sees the list
+        # instead of a blank page.
+        all_books = Book.query.join(Author).order_by(Book.title).all()
+
+    elif search_term and all_books:
+        flash(f"Showing results for '{search_term}'.", 'success')
+
+
+    return render_template('home.html', books=all_books)
 
 
 @app.route('/add_author', methods=['GET', 'POST'])
