@@ -1,6 +1,5 @@
 # Import section
 from flask import Flask, request, render_template, flash, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
 import os
 from data_models import db, Author, Book
 from datetime import datetime
@@ -137,6 +136,40 @@ def add_book():
 
     # Handle GET or finished POST (Default action: show the form)
     return render_template('add_book.html', authors=authors)
+
+@app.route('/book/<int:book_id>/delete', methods = ['POST'])
+def delete_book(book_id):
+
+    # Find the book with matching ID
+    book_to_delete = Book.query.get(book_id)
+
+    if book_to_delete:
+
+        # Get the Author object before deleting the book
+        author_to_check = book_to_delete.author
+
+        # Stage for deletion
+        db.session.delete(book_to_delete)
+
+        # Check if the author's list is now empty
+        if not author_to_check.books:
+            # Stage the author for deletion and flash message
+            db.session.delete(author_to_check)
+            flash_message = f"Book '{book_to_delete.title}' and author '{author_to_check.name}' deleted successfully!"
+        else:
+            flash_message = f"Book '{book_to_delete.title}' deleted successfully!"
+
+        # Commit changes
+        db.session.commit()
+
+        # Flash message and redirect
+        flash(flash_message, 'success')
+        return redirect(url_for('home'))
+
+    else:
+        flash("Book not found", 'error')
+        return redirect(url_for('home'))
+
 
 # 3. Configure the Database Connection using absolute path
 basedir = os.path.abspath(os.path.dirname(__file__))
